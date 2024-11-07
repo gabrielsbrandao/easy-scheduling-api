@@ -9,9 +9,13 @@ import { Exam } from './exams/exam.entity';
 import { Specialization } from './specializations/specialization.entity';
 import { Symptom } from './symptoms/symptom.entity';
 import { SymptomReport } from './symptom-reports/symptom-report.entity';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from './auth/jwt-auth.strategy';
 
 @Module({
   imports: [
@@ -29,7 +33,7 @@ import { AppService } from './app.service';
       entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom],  // Entidades
     }),  
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService],
 })
 export class AppModule {}
