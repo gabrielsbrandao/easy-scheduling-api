@@ -16,9 +16,19 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt-auth.strategy';
+import { UserService } from './user/user.service';
+import { User } from './user/user.entity';
+import { Permission } from './permission/permission.entity';
+import { UserPermission } from './user-permissions/user_permission.entity';
+import { UserPermissionService } from './user-permissions/user_permission.service';
+import { PermissionService } from './permission/permission.service';
+import { UsersModule } from './user/user.module';
+import { PermissionsModule } from './permission/permission.module';
+import { UserPermissionsModule } from './user-permissions/user_permissions.module';
 
 @Module({
   imports: [
+    
     ConfigModule.forRoot({
         isGlobal: true,
         envFilePath: '.env'
@@ -30,10 +40,13 @@ import { JwtStrategy } from './auth/jwt-auth.strategy';
       username: process.env.DATABASE_USERNAME,  // Usuário
       password: process.env.DATABASE_PASSWORD,  // Senha
       database: process.env.DATABASE_NAME,  // Banco de dados
-      entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom],  // Entidades
+      entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom, User, Permission, UserPermission],  // Entidades
     }),  
+    UsersModule,
+    PermissionsModule,
+    UserPermissionsModule
   ],
   controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService],
+  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService, UserService, UserPermissionService, PermissionService],
 })
 export class AppModule {}
