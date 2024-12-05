@@ -17,11 +17,4 @@ class CreateDTO {
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  @Post('create')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  create(@Body() body: CreateDTO) {
-    return body;
-  }
 }

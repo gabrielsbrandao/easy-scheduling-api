@@ -25,6 +25,15 @@ import { PermissionService } from './permission/permission.service';
 import { UsersModule } from './user/user.module';
 import { PermissionsModule } from './permission/permission.module';
 import { UserPermissionsModule } from './user-permissions/user_permissions.module';
+import { ClientController } from './clients/client.controller';
+import { ClientService } from './clients/client.service';
+import { ClientModule } from './clients/client.module';
+import { DiseaseController } from './diseases/disease.controller';
+import { DiseaseService } from './diseases/disease.service';
+import { DiseaseModule } from './diseases/disease.module';
+import { ClinicModule } from './clinics/clinic.module';
+import { ClinicController } from './clinics/clinic.controller';
+import { ClinicService } from './clinics/clinic.service';
 
 @Module({
   imports: [
@@ -44,9 +53,13 @@ import { UserPermissionsModule } from './user-permissions/user_permissions.modul
     }),  
     UsersModule,
     PermissionsModule,
-    UserPermissionsModule
+    UserPermissionsModule,
+    ClientModule,
+    ClinicModule,
+    DiseaseModule
+    
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService, UserService, UserPermissionService, PermissionService],
+  controllers: [AppController, AuthController, ClientController, ClinicController, DiseaseController],
+  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService, UserService, UserPermissionService, PermissionService, ClientService, DiseaseService, ClinicService],
 })
 export class AppModule {}

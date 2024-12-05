@@ -1,14 +1,14 @@
 // src/auth/auth.service.ts
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Permission } from './permission.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Symptom } from './symptom.entity';
 
 @Injectable()
-export class PermissionService {
+export class SymptomService {
     constructor(
-        @InjectRepository(Permission) private permissionRepository: Repository<Permission>,
+        @InjectRepository(Symptom) private symptomRepository: Repository<Symptom>,
       ) {}
     }
     

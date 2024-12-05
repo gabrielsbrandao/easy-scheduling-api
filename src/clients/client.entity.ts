@@ -1,9 +1,10 @@
 // src/clients/client.entity.ts
 
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 import { DiseaseReport } from '../disease-reports/disease-report.entity';
 import { SymptomReport } from '../symptom-reports/symptom-report.entity';
 import { Exam } from '../exams/exam.entity';
+import { User } from 'src/user/user.entity';
 
 @Entity('clients')
 export class Client {
@@ -25,6 +26,12 @@ export class Client {
   @Column({name: 'address', type: 'varchar', length: 255, nullable: true })
   Endereco?: string;
 
+  @Column({name: 'number', type: 'varchar', length: 255, nullable: true })
+  Numero?: string;
+
+  @Column({name: 'user_id', type: 'number', nullable: true })
+  UserId?: number;
+
   @OneToMany(() => DiseaseReport, diseaseReport => diseaseReport.client)
   diseaseReports: DiseaseReport[];
 
@@ -33,4 +40,8 @@ export class Client {
 
   @OneToMany(() => Exam, Exame => Exame.client)
   Exame: Exam[];
+
+  @OneToOne(() => User, { nullable: false }) 
+  @JoinColumn({ name: 'user_id' }) // Especifica que 'user_id' é a chave estrangeira
+  user: User;
 }
