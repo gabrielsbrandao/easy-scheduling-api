@@ -43,13 +43,13 @@ import { ClinicService } from './clinics/clinic.service';
         envFilePath: '.env'
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',  // Tipo de banco de dados mysql
-      host: process.env.DATABASE_HOST,  // Host local da conexão mysql
-      port: parseInt(process.env.DATABASE_PORT),  // Porta MySQL
-      username: process.env.DATABASE_USERNAME,  // Usuário
-      password: process.env.DATABASE_PASSWORD,  // Senha
-      database: process.env.DATABASE_NAME,  // Banco de dados
-      entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom, User, Permission, UserPermission],  // Entidades
+      type: 'mysql',
+      host: process.env.DATABASE_HOST,  
+      port: parseInt(process.env.DATABASE_PORT), 
+      username: process.env.DATABASE_USERNAME,  
+      password: process.env.DATABASE_PASSWORD,  
+      database: process.env.DATABASE_NAME,  
+      entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom, User, Permission, UserPermission], 
     }),  
     UsersModule,
     PermissionsModule,
