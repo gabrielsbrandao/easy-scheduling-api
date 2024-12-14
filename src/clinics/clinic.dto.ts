@@ -6,6 +6,9 @@ export class ClinicDTO {
   @ApiProperty({ description: 'Identificador único da clínica' })
   Id: number;
 
+  @ApiProperty({ description: 'Identificador único do usuário' })
+  UserId: number;
+
   @ApiProperty({ description: 'Nome da clínica', maxLength: 100 })
   Nome: string;
 
@@ -21,6 +24,5 @@ export class ClinicDTO {
   @ApiProperty({ description: 'Especializações da clínica', type: () => [ClinicSpecializationDTO], nullable: true })
   ClinicaEspecializacao?: ClinicSpecializationDTO[];
 
-  @ApiProperty({ description: 'Exames realizados na clínica', type: () => [ExamDTO], nullable: true })
-  Exame?: ExamDTO[];
+  Distancia?: string;
 }

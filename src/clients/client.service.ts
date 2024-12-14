@@ -3,10 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Client } from './client.entity';
 import { ClientDTO, CreateClientDTO } from './client.dto';
+import { GeolocationService } from 'src/geolocatilization/geolocalization.service';
 
 @Injectable()
 export class ClientService {
   constructor(
+    private readonly geolocationService: GeolocationService,
     @InjectRepository(Client)
     private readonly clientRepository: Repository<Client>,
   ) {}
@@ -17,7 +19,7 @@ export class ClientService {
 
   async findOne(id: number): Promise<Client> {
     const client = await this.clientRepository.findOne({
-      where: { Id: id },
+      where: { UserId: id },
       relations: ['diseaseReports', 'symptomReports', 'Exame', 'user'],
     });
 
@@ -30,6 +32,10 @@ export class ClientService {
 
   async create(clientDTO: CreateClientDTO): Promise<Client> {
     const client = this.clientRepository.create(clientDTO);
+    const { lat, lng } = await this.geolocationService.getGeolocationFromOpenCage(clientDTO.Endereco);
+    client.latitude = lat;
+    client.longitude = lng;
+    
     return await this.clientRepository.save(client);
   }
 

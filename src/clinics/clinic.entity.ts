@@ -18,17 +18,29 @@ export class Clinic {
 
   @Column({name: 'number', type: 'varchar', length: 255, nullable: true })
   Numero?: string;
-
+  
+  @Column({name: 'user_id', type: 'number', nullable: true })
+  UserId?: number;
+  
   @Column({name: 'telephone', type: 'varchar', length: 15, nullable: true })
   Telefone?: string;
 
   @OneToMany(() => ClinicSpecialization, ClinicaEspecializacao => ClinicaEspecializacao.Clinica)
   ClinicaEspecializacao: ClinicSpecialization[];
 
+  @Column('decimal', { precision: 9, scale: 6 })
+  longitude: number;
+  
+  @Column('decimal', { precision: 9, scale: 6 })
+  latitude: number;
+
+  @Column({name: 'cep', type: 'varchar', length: 255, nullable: true })
+  cep?: string;
+
   @OneToMany(() => Exam, Exame => Exame.clinic)
   Exame: Exam[];
 
   @OneToOne(() => User, { nullable: false }) 
-  @JoinColumn({ name: 'user_id' }) // Especifica que 'user_id' é a chave estrangeira
+  @JoinColumn({ name: 'user_id' })
   user: User;
 }

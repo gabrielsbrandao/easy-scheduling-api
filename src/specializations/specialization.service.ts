@@ -10,5 +10,9 @@ export class SpecializationService {
     constructor(
         @InjectRepository(Specialization) private specializationRepository: Repository<Specialization>,
       ) {}
+
+      async findAll(): Promise<Specialization[]> {
+              return await this.specializationRepository.find();
+            }
     }
     

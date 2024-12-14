@@ -38,7 +38,7 @@ export class ClientDTO {
 
 export class CreateClientDTO
 {
-    @ApiProperty({ description: 'Nome do cliente', maxLength: 100 })
+  @ApiProperty({ description: 'Nome do cliente', maxLength: 100 })
   Nome: string;
 
   @ApiProperty({ description: 'Data de nascimento do cliente', type: String, format: 'date' })
@@ -59,9 +59,13 @@ export class CreateClientDTO
   @ApiProperty({ description: 'Lista de relatórios de doenças do cliente', type: () => [DiseaseReportDTO], nullable: true })
   diseaseReports?: DiseaseReportDTO[];
 
-  @ApiProperty({ description: 'Numero do endereço do cliente', maxLength: 255, nullable: true })
+  @ApiProperty({ description: 'Usuário', maxLength: 255, nullable: true })
   User?: UserDTO;
 
-  @ApiProperty({ description: 'Numero do endereço do cliente', maxLength: 255, nullable: true })
+  @ApiProperty({ description: 'Id do Usuário', maxLength: 255, nullable: true })
   UserId?: number;
+
+  @ApiProperty({ description: 'Cep do cliente', maxLength: 255, nullable: true })
+  Cep?: string;
+
 }

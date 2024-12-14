@@ -34,10 +34,16 @@ import { DiseaseModule } from './diseases/disease.module';
 import { ClinicModule } from './clinics/clinic.module';
 import { ClinicController } from './clinics/clinic.controller';
 import { ClinicService } from './clinics/clinic.service';
+import { GeolocationService } from './geolocatilization/geolocalization.service';
+import { HttpModule, HttpService } from '@nestjs/axios';
 
 @Module({
   imports: [
-    
+    HttpModule.register({}),
+    HttpModule.register({
+      timeout: 5000,  // Timeout de 5 segundos
+      maxRedirects: 5,  // Limite de redirecionamento
+    }),
     ConfigModule.forRoot({
         isGlobal: true,
         envFilePath: '.env'
@@ -51,6 +57,7 @@ import { ClinicService } from './clinics/clinic.service';
       database: process.env.DATABASE_NAME,  
       entities: [Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom, User, Permission, UserPermission], 
     }),  
+    TypeOrmModule.forFeature([Client, ClinicSpecialization, Clinic, DiseaseReport, Disease, Exam, Specialization, SymptomReport, Symptom, User, Permission, UserPermission]),
     UsersModule,
     PermissionsModule,
     UserPermissionsModule,
@@ -60,6 +67,7 @@ import { ClinicService } from './clinics/clinic.service';
     
   ],
   controllers: [AppController, AuthController, ClientController, ClinicController, DiseaseController],
-  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService, UserService, UserPermissionService, PermissionService, ClientService, DiseaseService, ClinicService],
+  providers: [AppService, AuthService, JwtService, JwtStrategy, ConfigService, UserService, UserPermissionService, PermissionService, 
+    ClientService, DiseaseService, ClinicService, GeolocationService],
 })
 export class AppModule {}

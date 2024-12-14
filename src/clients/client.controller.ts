@@ -6,8 +6,6 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Client')
 @Controller('client')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 

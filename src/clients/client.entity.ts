@@ -31,6 +31,15 @@ export class Client {
 
   @Column({name: 'user_id', type: 'number', nullable: true })
   UserId?: number;
+  
+  @Column('decimal', { precision: 9, scale: 6 })
+  longitude: number;
+
+  @Column('decimal', { precision: 9, scale: 6 })
+  latitude: number;
+  
+ @Column({name: 'cep', type: 'varchar', length: 255, nullable: true })
+  cep?: string;
 
   @OneToMany(() => DiseaseReport, diseaseReport => diseaseReport.client)
   diseaseReports: DiseaseReport[];

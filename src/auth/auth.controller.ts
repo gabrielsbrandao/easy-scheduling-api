@@ -4,6 +4,7 @@ import { CreateUserDto } from 'src/user/user.entity';
 import { ApiBearerAuth, ApiExcludeEndpoint, ApiOperation, ApiProperty } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ClientService } from 'src/clients/client.service';
 
 // DTO de entrada para login
 class AuthDTO {
@@ -18,11 +19,10 @@ class AuthDTO {
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService,
+  ) {}
 
   @Post('register')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
@@ -32,7 +32,6 @@ export class AuthController {
     try
     {
       const user = await this.authService.validateUser(body.email, body.password);
-    
       if (user) {
         this.authService.updateLastLogin(user.id); // Atualiza o login
         this.logger.log('Login bem-sucedido', user.email);

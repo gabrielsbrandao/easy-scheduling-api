@@ -2,23 +2,22 @@ import { Controller, Post, Body, Get, Put, Delete, Param, UseGuards } from '@nes
 import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { ClinicService } from './clinic.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ClinicDTO } from './clinic.dto';
 
-class clinicDTO{
-    @ApiProperty()
-    username: string;
-    @ApiProperty()
-    password: string;
+class clinicDTO {
+  @ApiProperty()
+  username: string;
+  @ApiProperty()
+  password: string;
 }
 @Controller('clinic')
-@ApiBearerAuth()
 @ApiTags('Clinic')
-@UseGuards(AuthGuard('jwt'))
 export class ClinicController {
-  constructor(private readonly clinicService: ClinicService) {}
+  constructor(private readonly clinicService: ClinicService) { }
 
-  @Get()
-  async findAll() {
-    // return await this.clientService.findAll();
+  @Post(':userId')
+  async findAll(@Param('id') userId: number) {
+    return await this.clinicService.find(userId);
   }
   @Get(':id')
   async findOne() {
@@ -26,8 +25,9 @@ export class ClinicController {
   }
 
   @Post()
-  async create() {
-    //return await this.clientService.create(createClientDTO);
+  async create(@Body() createClientDTO: ClinicDTO) {
+    
+    return await this.clinicService.create(createClientDTO);
   }
 
   @Put(':id')
